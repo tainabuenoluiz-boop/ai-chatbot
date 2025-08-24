@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Domínio Rápido da IA — Guia Prático em 5 Minutos | ChatAI Edition</title>
+  <meta name="description" content="Aprenda a extrair mais da IA com prompts inteligentes e conquiste resultados práticos em minutos. Acesso imediato ao e-book." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0a0b12;
+      --card:#0e1020aa;
+      --glass:#0e1020cc;
+      --primary:#57f2a3;
+      --primary-2:#00e0ff;
+      --accent:#a78bfa;
+      --text:#eef2ff;
+      --muted:#b3b8d4;
+      --warning:#ffd166;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1200px;margin:0 auto;padding:20px}
+    /* Starfield background */
+    body:before, body:after{
+      content:"";position:fixed;inset:-10% -10% auto -10%;height:120%;
+      background:
+        radial-gradient(2px 2px at 20% 30%, #fff8, transparent 40%),
+        radial-gradient(1.5px 1.5px at 70% 60%, #fff5, transparent 40%),
+        radial-gradient(2px 2px at 40% 80%, #fff6, transparent 40%),
+        radial-gradient(1px 1px at 90% 20%, #fff4, transparent 40%);
+      animation: drift 120s linear infinite;z-index:-2;opacity:.35
+    }
+    body:after{
+      background:
+        radial-gradient(80vw 40vw at 10% -10%, rgba(167,139,250,.18), transparent 60%),
+        radial-gradient(60vw 30vw at 100% 0%, rgba(0,224,255,.12), transparent 60%),
+        radial-gradient(50vw 50vw at 50% 120%, rgba(87,242,163,.12), transparent 60%);
+      filter: blur(20px);opacity:.7;animation: float 26s ease-in-out infinite alternate;z-index:-3
+    }
+    @keyframes drift{to{transform:translate3d(-5vw,0,0)}}
+    @keyframes float{to{transform:translate3d(0,-2vh,0)}}
+
+    /* Header / Hero */
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--primary),var(--primary-2));
+      box-shadow:0 8px 24px rgba(0,224,255,.25)
+    }
+    .brand h1{font-size:18px;margin:0;font-weight:800;letter-spacing:.2px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:14px 20px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-2));
+      color:#001015;font-weight:800;box-shadow:var(--shadow);transition:transform .08s ease, filter .2s ease
+    }
+    .btn:hover{transform:translateY(-2px);filter:saturate(1.1)}
+    .btn.ghost{
+      background:#0e1020;border:1px solid #2a2f49;color:var(--text);box-shadow:none
+    }
+    .hero{
+      display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;margin-top:14px
+    }
+    @media (max-width:960px){.hero{grid-template-columns:1fr}}
+    .hero-card{
+      background:linear-gradient(180deg, rgba(14,16,32,.65), rgba(14,16,32,.35));
+      border:1px solid #2a2f49;border-radius:22px;padding:28px;box-shadow:var(--shadow);backdrop-filter: blur(6px)
+    }
+    .eyebrow{color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+    .title{font-size:clamp(28px,3.6vw,48px);line-height:1.05;margin:10px 0 12px;font-weight:900}
+    .subtitle{font-size:18px;color:var(--muted);margin:0 0 18px}
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 22px}
+    .badge{
+      font-size:12px;color:#071013;background:#10142b;border:1px solid #2a2f49;padding:8px 12px;border-radius:999px
+    }
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+    /* Mock cover */
+    .cover{
+      position:relative;aspect-ratio:4/5;border-radius:22px;overflow:hidden;border:1px solid #2a2f49;
+      background: radial-gradient(120% 100% at 20% 10%, rgba(0,224,255,.25), transparent 40%),
+                  radial-gradient(100% 60% at 90% 30%, rgba(167,139,250,.25), transparent 45%),
+                  linear-gradient(160deg, #0f142e 0%, #090c1a 100%);
+      box-shadow:0 30px 60px rgba(0,0,0,.55)
+    }
+    .cover:before{
+      content:"ChatAI";position:absolute;top:18px;left:18px;font-weight:800;letter-spacing:.12em;font-size:12px;color:#9aa3c4
+    }
+    .cover .cover-title{
+      position:absolute;left:18px;bottom:60px;right:18px;font-weight:900;font-size:28px;line-height:1.1
+    }
+    .cover .cover-sub{
+      position:absolute;left:18px;bottom:22px;right:18px;font-size:14px;color:#c8ceea
+    }
+
+    /* Benefits */
+    .section{margin:50px 0}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media (max-width:960px){.grid-3{grid-template-columns:1fr}}
+    .card{
+      background:var(--card);border:1px solid #2a2f49;border-radius:18px;padding:20px;box-shadow:var(--shadow)
+    }
+    .card h3{margin:0 0 8px;font-size:18px}
+    .card p{margin:0;color:var(--muted)}
+    .num{font-weight:900;color:var(--primary)}
+
+    /* Tips */
+    .tips .card{position:relative}
+    .tip-tag{
+      position:absolute;top:16px;right:16px;font-size:11px;padding:6px 10px;border-radius:999px;
+      background:#0f1a2c;border:1px solid #2a2f49;color:#a2a9c8
+    }
+
+    /* FAQ */
+    details{
+      background:#0f1326;border:1px solid #2a2f49;border-radius:12px;padding:14px 16px
+    }
+    details+details{margin-top:10px}
+    summary{cursor:pointer;font-weight:700}
+    summary::-webkit-details-marker{display:none}
+    .faq p{color:var(--muted);margin:8px 0 0}
+
+    /* Sticky CTA bar */
+    .bar{
+      position:sticky;bottom:0;left:0;right:0;z-index:50;background:linear-gradient(180deg, transparent, rgba(10,11,18,.7) 30%, rgba(10,11,18,.92));
+      backdrop-filter: blur(6px);border-top:1px solid #2a2f49
+    }
+    .bar .inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px}
+    .bar .mini{font-size:13px;color:var(--muted)}
+    .bar .btn{padding:12px 18px;border-radius:999px}
+
+    .foot{margin:30px 0 10px;color:#8690b3;font-size:12px;text-align:center}
+    .foot a{color:#a8b3e8;text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav" aria-label="Navegação principal">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🤖</div>
+        <h1>ChatAI Store</h1>
+      </div>
+      <div class="actions">
+        <a class="btn ghost" href="#faq" aria-label="Ir para dúvidas frequentes">Dúvidas</a>
+        <a class="btn" href="https://go.hotmart.com/J101383283D" target="_blank" rel="noopener" aria-label="Comprar e-book agora">Acesso imediato</a>
+      </div>
+    </nav>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-card">
+        <div class="eyebrow">E-book • Acesso imediato</div>
+        <h2 id="hero-title" class="title">Domínio Rápido da IA: Guia Prático em 5 Minutos</h2>
+        <p class="subtitle">Desbloqueie conversas que geram respostas melhores, tarefas feitas em minutos e resultados consistentes com IA — sem complicar.</p>
+        <div class="badges">
+          <span class="badge">Layout otimizado p/ celular</span>
+          <span class="badge">Exclusivo + bônus</span>
+          <span class="badge">Roteiros de prompt prontos</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn" href="https://go.hotmart.com/J101383283D" target="_blank" rel="noopener">Quero meu acesso agora</a>
+          <a class="btn ghost" href="#tips">Ver 3 dicas “secretas” de ChatAI</a>
+        </div>
+        <div class="badges" style="margin-top:14px">
+          <span class="badge">Pagamento seguro Hotmart</span>
+          <span class="badge">Download imediato</span>
+          <span class="badge">Suporte por e-mail</span>
+        </div>
+      </div>
+      <aside class="cover" aria-label="Capa do e-book">
+        <div class="cover-title">Domínio Rápido da IA</div>
+        <div class="cover-sub">Guia prático em 5 minutos • Prompts + frameworks</div>
+      </aside>
+    </section>
+
+    <section class="section" aria-labelledby="beneficios">
+      <h2 id="beneficios" class="eyebrow">Por que este e-book</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3><span class="num">01</span> Conversas que funcionam</h3>
+          <p><b>Clareza:</b> Estruture prompts que reduzem erros e aumentam a precisão das respostas.</p>
+        </div>
+        <div class="card">
+          <h3><span class="num">02</span> Tempo é conversão</h3>
+          <p><b>Agilidade:</b> Transforme ideias em rascunhos utilizáveis em minutos, com checklists e modelos.</p>
+        </div>
+        <div class="card">
+          <h3><span class="num">03</span> Resultados replicáveis</h3>
+          <p><b>Consistência:</b> Padronize seu jeito de falar com a IA e multiplique seus acertos.</p>
+        </div>
+      </div>
+      <div class="cta-row" style="margin-top:18px">
+        <a class="btn" href="https://go.hotmart.com/J101383283D" target="_blank" rel="noopener">Garantir meu acesso</a>
+        <a class="btn ghost" href="#faq">Como funciona</a>
+      </div>
+    </section>
+
+    <section id="tips" class="section tips" aria-labelledby="dicas">
+      <h2 id="dicas" class="eyebrow">3 dicas “secretas” de ChatAI</h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="tip-tag">Clareza > Tamanho</div>
+          <h3>1) Diga o que quer — sem rodeios</h3>
+          <p><b>Direção:</b> Dê objetivo, público, formato e limite de palavras. Quanto mais claro, melhor a resposta.</p>
+        </div>
+        <div class="card">
+          <div class="tip-tag">Contexto é rei</div>
+          <h3>2) Alimente com referência</h3>
+          <p><b>Exemplo:</b> Cole um trecho, tom de voz ou modelo. A IA acerta mais quando tem base concreta.</p>
+        </div>
+        <div class="card">
+          <div class="tip-tag">Passo a passo</div>
+          <h3>3) Divida o desafio</h3>
+          <p><b>Estratégia:</b> Peça primeiro tópicos, depois aprofunde um por vez. Menos erro, mais controle.</p>
+        </div>
+      </div>
+      <div class="cta-row" style="margin-top:18px">
+        <a class="btn" href="https://go.hotmart.com/J101383283D" target="_blank" rel="noopener">Aplicar as dicas com o e-book</a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="prova">
+      <h2 id="prova" class="eyebrow">O que você leva</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Prompts-modelo</h3>
+          <p><b>Economia:</b> Copie, cole e adapte — prontos para marketing, estudo, conteúdo e negócios.</p>
+        </div>
+        <div class="card">
+          <h3>Frameworks de prompt</h3>
+          <p><b>Consistência:</b> Estruturas para persona, objetivo, contexto, critérios e verificação.</p>
+        </div>
+        <div class="card">
+          <h3>Checklist de qualidade</h3>
+          <p><b>Controle:</b> Passos rápidos para checar clareza, tom, referências e métricas.</p>
+        </div>
+      </div>
+      <div class="cta-row" style="margin-top:18px">
+        <a class="btn" href="https://go.hotmart.com/J101383283D" target="_blank" rel="noopener">Quero tudo isso agora</a>
+      </div>
+    </section>
+
+    <section id="faq" class="section faq" aria-labelledby="duvidas">
+      <h2 id="duvidas" class="eyebrow">Dúvidas frequentes</h2>
+      <details>
+        <summary>Como recebo o e-book?</summary>
+        <p><b>Entrega:</b> Pagando pela Hotmart, o acesso é liberado e o download é imediato no seu e-mail e na plataforma.</p>
+      </details>
+      <details>
+        <summary>Serve para iniciantes?</summary>
+        <p><b>Sim:</b> Linguagem simples, com exemplos e modelos prontos para você adaptar ao seu contexto.</p>
+      </details>
+      <details>
+        <summary>Funciona no celular?</summary>
+        <p><b>Total:</b> Tanto a leitura quanto as sugestões de prompt são pensadas para uso mobile.</p>
+      </details>
+    </section>
+
+    <footer class="foot">
+      <p>© 2025 ChatAI Store • <a href="https://go.hotmart.com/J101383283D" target="_blank" rel="noopener">Comprar na Hotmart</a></p>
+    </footer>
+  </div>
+
+  <div class="bar" role="region" aria-label="Barra de ação">
+    <div class="inner wrap">
+      <div class="mini"><b>Acesso imediato:</b> baixe o e-book e aplique hoje.</div>
+      <a class="btn" href="https://go.hotmart.com/J101383283D" target="_blank" rel="noopener">Quero começar agora</a>
+    </div>
+  </div>
+</body>
+</html>
